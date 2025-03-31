@@ -85,7 +85,7 @@ class PortfolioEnv(gym.Env):
         # print(self.observation[-1, :, 0])
         return self.observation, (reward), done, {}
 
-    def reset(self, *, seed=None, options=None):
+    def reset(self):
         # Reset the environment to the initial state
         self.current_step = self.window_size
         self.day = self.window_size
