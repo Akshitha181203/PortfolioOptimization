@@ -39,10 +39,10 @@ class PortfolioEnv(gym.Env):
         self.weights.fill(1/self.data.shape[1])
         self.memory = []
         self.weights_memory = []
-        # Initialize the state
-        self.reset()
         # Track individual step returns
-        self.returns = []  
+        self.returns = [] 
+        # Initialize the state
+        self.reset() 
 
 
     def step(self, action):
@@ -91,7 +91,7 @@ class PortfolioEnv(gym.Env):
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
-    
+
     def reset(self, *, seed=None, options=None):
         if seed is not None:
             self.seed(seed)
