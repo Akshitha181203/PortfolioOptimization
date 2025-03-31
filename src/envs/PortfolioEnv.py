@@ -88,8 +88,13 @@ class PortfolioEnv(gym.Env):
         # print(self.observation[-1, :, 0])
         return self.observation, (reward), done, {}
 
+    def seed(self, seed=None):
+        self.np_random, seed = seeding.np_random(seed)
+        return [seed]
+    
     def reset(self, *, seed=None, options=None):
-        super().reset(seed=seed)
+        if seed is not None:
+            self.seed(seed)
 
         # Reset the environment to the initial state
         self.current_step = self.window_size
