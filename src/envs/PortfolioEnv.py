@@ -6,12 +6,9 @@ import math
 import time
 from scipy.special import softmax
 
-# import gymnasium as gym
-# from gymnasium.utils import seeding
-# from gymnasium import spaces
-import gym
-from gym import spaces
-from gym.utils import seeding
+import gymnasium as gym
+from gymnasium.utils import seeding
+from gymnasium import spaces
 
 from stable_baselines3.common.vec_env import DummyVecEnv
 
@@ -40,9 +37,9 @@ class PortfolioEnv(gym.Env):
         self.memory = []
         self.weights_memory = []
         # Track individual step returns
-        self.returns = [] 
+        self.returns = []  
         # Initialize the state
-        # self.reset() 
+        self.reset()
 
 
     def step(self, action):
@@ -88,14 +85,7 @@ class PortfolioEnv(gym.Env):
         # print(self.observation[-1, :, 0])
         return self.observation, (reward), done, {}
 
-    def seed(self, seed=None):
-        self.np_random, seed = seeding.np_random(seed)
-        return [seed]
-
     def reset(self, *, seed=None, options=None):
-        if seed is not None:
-            self.seed(seed)
-
         # Reset the environment to the initial state
         self.current_step = self.window_size
         self.day = self.window_size
