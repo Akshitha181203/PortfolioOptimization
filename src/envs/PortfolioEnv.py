@@ -6,9 +6,12 @@ import math
 import time
 from scipy.special import softmax
 
-import gymnasium as gym
-from gymnasium.utils import seeding
-from gymnasium import spaces
+# import gymnasium as gym
+# from gymnasium.utils import seeding
+# from gymnasium import spaces
+import gym
+from gym import spaces
+from gym.utils import seeding
 
 from stable_baselines3.common.vec_env import DummyVecEnv
 
@@ -87,7 +90,7 @@ class PortfolioEnv(gym.Env):
 
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
-        
+
         # Reset the environment to the initial state
         self.current_step = self.window_size
         self.day = self.window_size
