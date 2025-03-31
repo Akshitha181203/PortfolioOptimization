@@ -42,7 +42,7 @@ class PortfolioEnv(gym.Env):
         # Track individual step returns
         self.returns = [] 
         # Initialize the state
-        self.reset() 
+        # self.reset() 
 
 
     def step(self, action):
