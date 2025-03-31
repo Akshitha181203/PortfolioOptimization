@@ -38,6 +38,9 @@ class PortfolioEnv(gym.Env):
         self.weights_memory = []
         # Initialize the state
         self.reset()
+        # Track individual step returns
+        self.returns = []  
+
 
     def step(self, action):
         # Execute one step of the environment
@@ -51,13 +54,27 @@ class PortfolioEnv(gym.Env):
 
         # Update the state
         self.observation = self.get_observation()
-        reward = 0
-        for i in range(self.data.shape[1]):
-            diff = self.data[self.day+1, i, 0]-self.data[self.day, i, 0]
-            old_val = self.data[self.day, i, 0]+1e-6
-            reward += (diff/old_val)*self.weights[i]
+        # reward = 0
+        # for i in range(self.data.shape[1]):
+        #     diff = self.data[self.day+1, i, 0]-self.data[self.day, i, 0]
+        #     old_val = self.data[self.day, i, 0]+1e-6
+        #     reward += (diff/old_val)*self.weights[i]
 
-        self.balance += reward
+        # self.balance += reward
+        # Calculate per-step portfolio return
+        step_return = 0
+        for i in range(self.data.shape[1]):
+            diff = self.data[self.day+1, i, 0] - self.data[self.day, i, 0]
+            old_val = self.data[self.day, i, 0] + 1e-6
+            step_return += (diff / old_val) * self.weights[i]
+
+        # Save this return
+        self.returns.append(step_return)
+
+        # Use recent 30 steps for Sortino reward
+        reward = self.sortino_ratio(self.returns[-30:])
+        self.balance += step_return
+
         if (np.isnan(reward)):
             exit()
         # Move to the next time step
@@ -80,6 +97,7 @@ class PortfolioEnv(gym.Env):
         self.weights_memory = []
         # Initialize the state
         self.observation = self.get_observation()
+        self.returns = []
 
         return self.observation
 
@@ -90,3 +108,10 @@ class PortfolioEnv(gym.Env):
         state[:, :, -1] = np.repeat(self.weights.reshape(1, -1),
                                     self.observation_space.shape[0], axis=0)
         return state
+
+    def sortino_ratio(self, returns, risk_free_rate=0.0):
+        downside = [r for r in returns if r < risk_free_rate]
+        if not downside:
+            return 0
+        downside_std = np.std(downside)
+        return (np.mean(returns) - risk_free_rate) / downside_std if downside_std else 0
