@@ -86,7 +86,10 @@ class PortfolioEnv(gym.Env):
         # Calculate the reward and done flag
         done = self.day >= self.data.shape[0] - 1
         # print(self.observation[-1, :, 0])
-        return self.observation, (reward), done, {}
+        # return self.observation, (reward), done, {}
+        terminated = done
+        truncated = False  # Optional: add your own logic if needed
+        return self.observation, reward, terminated, truncated, {}
 
     def reset(self, seed=None, options=None):
         # Reset the environment to the initial state
