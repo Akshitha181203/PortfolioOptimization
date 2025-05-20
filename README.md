@@ -15,6 +15,16 @@ This project explores the use of **Deep Reinforcement Learning (DRL)** for **sta
 
 ## Repository Structure
 
+```text
+├── /ipynb # Notebooks for RAC and Transformer-Encoded PPO Agents
+│   ├── Compare_RAC.ipynb/
+│   ├── RiskSensitive_AC_stock.ipynb/
+│   ├── portfolio_optimization_new.ipynb/
+│   └── transformer_ppo_portfolio.ipynb/
+├── /src # Environments and Agents (Ray[RLLib]-based implementations)
+├── Final_Stable and Realistic Deep Reinforcement Learning in Portfolio Management..pdf
+└── README.md # This file
+```
 
 ## Key Features
 
