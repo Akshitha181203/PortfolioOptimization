@@ -45,3 +45,14 @@ This project explores the use of **Deep Reinforcement Learning (DRL)** for **sta
 - **TRPO with Sharpe Ratio** achieved the best performance in terms of cumulative returns and stability.
 - **Sortino Ratio** reward provided better risk-sensitive learning, especially when used with PPO.
 - Stable training and more realistic simulations resulted in significantly better drawdown control.
+
+## 📚 Credits
+
+This project is heavily inspired by the work:
+
+**Paper**: [Deployability of Deep Reinforcement Learning in Portfolio Management](https://github.com/ishwargov/PortfolioOptimization/blob/main/Report.pdf)  
+**Authors**: Ishwar Govind, Jerry Thomas, Prof. Chandrashekar Lakshminarayan.  
+**Repository**: [Google Research – deep_rl_for_portfolio](https://github.com/ishwargov/PortfolioOptimization)
+
+We have extended the original work with new agents (e.g., RAC, Transformer-PPO), reward functions (Sortino Ratio), and more realistic simulation environments.  
+Please cite or credit the original authors if you reuse or modify any parts of their research or code.
